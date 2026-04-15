@@ -1,0 +1,82 @@
+[
+  {
+    "group": "Auth",
+    "endpoint": "/api/auth/register",
+    "method": "POST",
+    "description": "Register new user",
+    "middleware": ["validateRegister"],
+    "controller": "register"
+  },
+  {
+    "group": "Auth",
+    "endpoint": "/api/auth/login",
+    "method": "POST",
+    "description": "Login user",
+    "middleware": ["validateLogin"],
+    "controller": "login"
+  },
+  {
+    "group": "Auth",
+    "endpoint": "/api/auth/logout",
+    "method": "POST",
+    "description": "Logout user",
+    "middleware": [],
+    "controller": "logout"
+  },
+  {
+    "group": "Auth",
+    "endpoint": "/api/auth/profile",
+    "method": "GET",
+    "description": "Get user profile (protected)",
+    "middleware": ["protect"],
+    "controller": "inline"
+  },
+  {
+    "group": "Auth",
+    "endpoint": "/api/auth/admin-dashboard",
+    "method": "GET",
+    "description": "Admin dashboard (protected, admin only)",
+    "middleware": ["protect", "authorizeRoles('admin')"],
+    "controller": "inline"
+  },
+  {
+    "group": "Notes",
+    "endpoint": "/api/notes/create",
+    "method": "POST",
+    "description": "Create new note (protected)",
+    "middleware": ["protect"],
+    "controller": "createNote"
+  },
+  {
+    "group": "Notes",
+    "endpoint": "/api/notes/",
+    "method": "GET",
+    "description": "Get all user notes (protected)",
+    "middleware": ["protect"],
+    "controller": "getNotes"
+  },
+  {
+    "group": "Notes",
+    "endpoint": "/api/notes/:id",
+    "method": "GET",
+    "description": "Get single note by ID (protected)",
+    "middleware": ["protect"],
+    "controller": "getNote"
+  },
+  {
+    "group": "Notes",
+    "endpoint": "/api/notes/:id",
+    "method": "PUT",
+    "description": "Update note by ID (protected)",
+    "middleware": ["protect"],
+    "controller": "updateNote"
+  },
+  {
+    "group": "Notes",
+    "endpoint": "/api/notes/:id",
+    "method": "DELETE",
+    "description": "Delete note by ID (protected)",
+    "middleware": ["protect"],
+    "controller": "deleteNote"
+  }
+]
