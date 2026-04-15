@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.model.js";
 import dotenv from "dotenv";
+import redisClient from "../config/redis.js";
 
 dotenv.config();
 
@@ -86,5 +87,17 @@ export const login = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Login failed" });
+  }
+};
+
+export const logout = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    redisClient.set(token, "blacklisted");
+    res.clearCookie("token");
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Logout failed" });
   }
 };
