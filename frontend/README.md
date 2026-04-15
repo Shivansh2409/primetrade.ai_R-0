@@ -1,8 +1,25 @@
-# React + Vite
+# PrimeTrade Frontend (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dark theme notes app with auth.
 
-Currently, two official plugins are available:
+## Quick Start
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+npm install
+npm run dev
+```
+
+http://localhost:5173
+
+## Backend API
+
+Backend runs on http://localhost:8080/api
+
+See root README.md for full setup.
+
+## Features
+
+- Dark grey theme (Sass)
+- Auth (login/register/protected)
+- Notes CRUD
+- Responsive
