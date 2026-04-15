@@ -24,6 +24,7 @@ export const useAuth = () => {
       localStorage.setItem("token", userData.token); // If you use tokens for authentication
       console.log("Login successful:", userData);
       setUser(userData);
+      return userData;
     } catch (error) {
       console.error("Login failed:", error);
     } finally {
@@ -31,15 +32,21 @@ export const useAuth = () => {
     }
   };
 
-  const handleRegister = async (userName, email, password) => {
+  const handleRegister = async (userName, email, password, confirmPassword) => {
     console.log("Registering user with:", { userName, email, password });
     setLoading(true);
     try {
-      const userData = await register(email, userName, password);
+      const userData = await register(
+        email,
+        userName,
+        password,
+        confirmPassword,
+      );
       localStorage.setItem("user", JSON.stringify(userData.user));
       localStorage.setItem("token", userData.token); // If you use tokens for authentication
       console.log("Login successful:", userData);
       setUser(userData);
+      return userData;
     } catch (error) {
       console.error("Registration failed:", error);
     } finally {
@@ -64,6 +71,7 @@ export const useAuth = () => {
     try {
       const userData = await getCurrentUser();
       setUser(userData);
+      return userData;
     } catch (error) {
       console.error("Fetching current user failed:", error);
     } finally {

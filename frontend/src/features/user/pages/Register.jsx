@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "./Register.scss";
 import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const { register } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,7 +20,8 @@ const Register = () => {
     setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log(formData);
     e.preventDefault();
     if (!formData.email || !formData.password || !formData.confirmPassword) {
       setError("Please fill all fields");
@@ -26,9 +31,20 @@ const Register = () => {
       setError("Passwords do not match");
       return;
     }
-    // Standalone - no API call
-    console.log("Register attempt:", { email: formData });
-    alert("Register form submitted! (Demo - no backend connection)");
+
+    try {
+      await register(
+        formData.name,
+        formData.email,
+        formData.password,
+        formData.confirmPassword,
+      ).then((res) => {
+        console.log(res);
+        navigate("/");
+      });
+    } catch (error) {
+      setError(error.message);
+    }
   };
 
   return (

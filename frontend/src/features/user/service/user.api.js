@@ -5,7 +5,8 @@ const api = axios.create({
   withCredentials: true, // JWT cookies
 });
 
-export async function register(email, userName, password) {
+export async function register(email, userName, password, confirmPassword) {
+  console.log(email, userName, password, confirmPassword);
   try {
     console.log("Registering user:", {
       email,
@@ -16,7 +17,7 @@ export async function register(email, userName, password) {
     const response = await api.post("/auth/register", {
       email: email,
       password: password,
-      name: userName.userName,
+      name: userName,
       confirmPassword: confirmPassword,
     });
     return response.data;

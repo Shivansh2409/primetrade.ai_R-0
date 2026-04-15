@@ -25,11 +25,14 @@ const Login = () => {
       setError("Please fill all fields");
       return;
     }
+
     // Standalone - no API call
 
     try {
-      await login(formData.email, formData.password);
-      navigate("/");
+      await login(formData.email, formData.password).then((res) => {
+        console.log(res);
+        navigate("/");
+      });
     } catch (error) {
       setError(error.message);
     }
