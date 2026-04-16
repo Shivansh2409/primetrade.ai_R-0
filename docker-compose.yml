@@ -1,0 +1,61 @@
+version: "3.8"
+
+services:
+  # 1. MongoDB Service
+  mongo:
+    image: mongo:latest
+    container_name: note-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - note-network
+
+  # 2. Redis Service (NEW)
+  redis:
+    image: redis:alpine
+    container_name: note-redis
+    restart: always
+    ports:
+      - "6379:6379" # Exposes Redis so you can use a local GUI like RedisInsight if you want
+    networks:
+      - note-network
+
+  # 3. Backend Service (UPDATED)
+  backend:
+    image: shiva2409/note-backend:latest
+    container_name: note-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    # This tells Docker to load the variables from your backend's .env file!
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - mongo
+      - redis # Ensures Redis starts before the backend
+    networks:
+      - note-network
+
+  # 4. Frontend & Nginx Service
+  frontend:
+    image: shiva2409/note-frontend:latest
+    container_name: note-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - note-network
+
+# Define the common network
+networks:
+  note-network:
+    driver: bridge
+
+# Define the persistent volume for MongoDB
+volumes:
+  mongo-data:

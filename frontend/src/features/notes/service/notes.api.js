@@ -1,5 +1,5 @@
 import axios from "axios";
-
+// if docker baseURL:"/api/api"
 const api = axios.create({
   baseURL: "http://localhost:8080/api",
   withCredentials: true, // JWT cookies

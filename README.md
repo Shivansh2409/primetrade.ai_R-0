@@ -17,7 +17,7 @@ Full-stack note-taking app with authentication.
 - MongoDB (local or Atlas)
 - Redis (optional, for sessions)
 
-### Backend
+### Backend (npm)
 
 ```bash
 cd backend
@@ -26,9 +26,9 @@ npm install
 npm start
 ```
 
-Frontend API: `http://localhost:8080`
+Backend API: `http://localhost:8080`
 
-### Frontend
+### Frontend (npm)
 
 ```bash
 cd frontend
@@ -36,7 +36,7 @@ npm install
 npm run dev
 ```
 
-App: `http://localhost:5173`
+Dev app: `http://localhost:5173`
 
 ## Features
 
@@ -68,12 +68,28 @@ primetrade.ai/
 
 See [backend/docs/ROUTES.md](backend/docs/ROUTES.md)
 
+## Docker (Recommended)
+
+Single command start:
+
+```bash
+cp backend/.env.example backend/.env  # Configure
+docker-compose up --build
+```
+
+**Services:**
+
+- Frontend: http://localhost (nginx)
+- Backend: http://localhost:8080
+- MongoDB: localhost:27017
+- Redis: localhost:6379
+
 ## Environment
 
-Copy `.env.example` files and configure:
+Copy backend/.env.example → backend/.env:
 
 - `PORT`, `MONGO_URI`, `JWT_SECRET`
-- Redis optional for sessions
+- Redis optional
 
 ## Development
 
